@@ -1,0 +1,31 @@
+CREATE table "SUJA_GENERATOR" (
+    "CISLO"      NUMBER(4,0),
+    "NAZOV"      VARCHAR2(50),
+    "TYP"        VARCHAR2(50),
+    "VYKON"      NUMBER(4,0),
+    "NAPATIE"    NUMBER(4,0),
+    "MAX._PRUD"  NUMBER(4,0),
+    "X"          NUMBER(5,2),
+    "R"          NUMBER(5,2),
+    "CENA"       NUMBER(4,0),
+    "ODPIS"      NUMBER(4,0),
+    "DODAVATEL"  VARCHAR2(50),
+    "TERMIN"     DATE,
+    "UDRZBA/ROK" NUMBER(4,0),
+    constraint  "SUJA_GENERATOR_PK" primary key ("CISLO")
+)
+/
+
+CREATE sequence "SUJA_GENERATOR_SEQ" 
+/
+
+CREATE trigger "BI_SUJA_GENERATOR"  
+  before insert on "SUJA_GENERATOR"              
+  for each row 
+begin  
+  if :NEW."CISLO" is null then
+    select "SUJA_GENERATOR_SEQ".nextval into :NEW."CISLO" from dual;
+  end if;
+end;
+/   
+
